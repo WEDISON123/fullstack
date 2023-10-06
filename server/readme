@@ -1,0 +1,30 @@
+- 书城数据格式
+    精选
+    {
+        热门连载: [
+            {
+                img: "",
+                title: "",
+                content: "",
+                author: "",
+                type: "",
+            },
+            {
+                img: "",
+                title: "",
+                author: "",
+            }, x 6
+        ],
+        推荐等排行榜： [
+            {
+                img: "",
+                title: "",
+                score: "",
+                type: "",
+                author: "",
+                content: "",
+            }, x n
+        ] x 6
+    }
+
+    
