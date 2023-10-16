@@ -43,7 +43,7 @@ const submitForm = async () => {
     const status = await signUp(formData)
     if(status === 201) {
         showNotify({ type: 'success', message: '注册成功', duration: 1000});
-        router.go(-1);
+        // router.go(-1);
     }else if (status === 200) {
         showNotify({ type: 'danger', message: '用户名已存在', duration: 1000});
     }

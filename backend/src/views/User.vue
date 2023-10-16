@@ -32,7 +32,7 @@ import { removeUser } from '../api/user'
 const store = userStore()
 store.getUser()
 
-const deleteUser = async (name:any) => {
+const deleteUser = async (name:string) => {
   // console.log(name)
   const result = await removeUser(name)
   if(result === 'success') {

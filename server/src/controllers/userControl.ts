@@ -1,7 +1,9 @@
 import { context } from 'koa';
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import User from '../models/user';
+import Swiper from '../models/swiper';
 import { UserType } from '../models/user';
+import { SwiperType } from '../models/swiper';
 
 // get请求获取数据库数据
 export const getUser = async (ctx: context) => {
@@ -54,6 +56,7 @@ export const creatUser = async (ctx: context) => {
       }
 }
 
+// 后台管理删除用户
 export const deleteUserByName = async (ctx: context) => {
     const { name } = ctx.params
     try{
@@ -66,4 +69,53 @@ export const deleteUserByName = async (ctx: context) => {
         ctx.status = 400;
         ctx.body = { error: error.message };
     }
+}
+
+// 获取swiper表
+export const getSwiper = async (ctx: context) => {
+    try {
+        const swiper = await Swiper.find();
+        ctx.status = 200;
+        ctx.body = swiper;
+    } catch (error) {
+        ctx.throw(500, error);
+    }
+}
+
+// 删除特定的swiper
+export const deleteSwiper = async (ctx: context) => {
+    const { title } = ctx.params
+    // console.log(title)
+    try{
+        const result = await Swiper.remove({ title: title })
+        if(result) {
+            console.log('remove success')
+        }
+        ctx.status = 200;
+    } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: error.message };
+    }
+}
+
+// 写入swiper
+export const creatSwiper = async (ctx: context) => {
+    try {
+        const { title, img } = ctx.request.body;
+        const find = await Swiper.findOne({ title: title})
+        if(find) {
+            ctx.status = 200
+            ctx.body = '标题已存在'
+        } else {
+            const swiper = new Swiper({
+                title,
+                img
+            });
+            await swiper.save();
+            ctx.status = 201;
+        }
+      } catch (error) {
+        ctx.status = 400;
+        ctx.body = { error: error.message };
+      }
 }

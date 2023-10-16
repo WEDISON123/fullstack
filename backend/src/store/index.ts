@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, Ref } from 'vue'
 import { getAllUsers } from '../api/user'
+import { getAllSwiper } from '../api/swiper'
 import { User } from '../types'
 
 export const layoutStore = defineStore('layout', () => {
@@ -28,5 +29,18 @@ export const userStore = defineStore('user', () => {
     return {
         user,
         getUser
+    }
+})
+
+export const swiperStore = defineStore('swiper', () => {
+    const swiper:Ref<User[]> = ref([])
+
+    const getSwiper = async () => {
+        swiper.value = await getAllSwiper()
+    }
+
+    return {
+        swiper,
+        getSwiper
     }
 })
